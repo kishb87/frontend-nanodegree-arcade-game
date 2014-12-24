@@ -6,14 +6,31 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    this.xBoundary = [-150, 550];
+
+    this.spawn();
 }
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+
+Enemy.prototype.spawn = function(dt) {
+
+    this.x = -200;
+    this.y = 200;
+    this.speed = 150;
+    
+}
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += (dt * this.speed);
+
+    if(this.x > this.xBoundary[1]){
+        this.spawn();
+    }
 }
 
 // Draw the enemy on the screen, required method for game
@@ -68,28 +85,15 @@ Player.prototype.render = function(){
 
 }
 
-var Jewel = function(){
 
-    this.sprite = "images/Gem Blue.png";
-
-    
-}
-
-Jewel.prototype.update = function(){
-
-}
-
-Jewel.prototype.render = function(){
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [];
+var bob = new Enemy();
+var allEnemies = [bob];
 var player = new Player();
-var jewel = new  Jewel();
 
 
 
