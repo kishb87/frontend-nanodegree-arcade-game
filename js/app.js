@@ -34,32 +34,32 @@ var Player = function(){
     // Starting coordinates of the player
     this.x = 200;
     this.y = 400;
-
-    this.moveY = 0;
-
-    this.speed = 5;
     
-
 }
+
 
 Player.prototype.handleInput = function(key){
-    if(key === 'up')
-            this.moveY -= 85;
+
+    //Move x or y by change variables
+    this.yChange = 90;
+    this.xChange = 100;
+
+
+    //Change x or y depending upon key as long as in defined boundary 
+    if(key === 'up' && this.y > 100)
+            this.y = this.y - this.yChange;
+    if(key === 'down' && this.y < 360)
+            this.y = this.y + this.yChange;
+    if(key === 'left' && this.x > 50)
+            this.x = this.x - this.xChange;
+    if(key === 'right' && this.x < 350)
+            this.x = this.x + this.xChange;
 
 }
 
-Player.prototype.update = function(){
 
-    if(this.moveY > 0)
-    {
-        this.y += this.speed;
-        this.moveY -= this.speed;
-    }
-    if(this.moveY < 0)
-    {
-        this.y -= this.speed;
-        this.moveY += this.speed;
-    }
+
+Player.prototype.update = function(){
 
 }
 
@@ -72,6 +72,7 @@ var Jewel = function(){
 
     this.sprite = "images/Gem Blue.png";
 
+    
 }
 
 Jewel.prototype.update = function(){
@@ -79,6 +80,7 @@ Jewel.prototype.update = function(){
 }
 
 Jewel.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
 // Now instantiate your objects.
@@ -87,6 +89,7 @@ Jewel.prototype.render = function(){
 
 var allEnemies = [];
 var player = new Player();
+var jewel = new  Jewel();
 
 
 
