@@ -21,14 +21,72 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
 
+var Player = function(){
+
+    this.sprite = 'images/char-boy.png';
+
+    // Starting coordinates of the player
+    this.x = 200;
+    this.y = 400;
+
+    this.moveY = 0;
+
+    this.speed = 5;
+    
+
+}
+
+Player.prototype.handleInput = function(key){
+    if(key === 'up')
+            this.moveY -= 85;
+
+}
+
+Player.prototype.update = function(){
+
+    if(this.moveY > 0)
+    {
+        this.y += this.speed;
+        this.moveY -= this.speed;
+    }
+    if(this.moveY < 0)
+    {
+        this.y -= this.speed;
+        this.moveY += this.speed;
+    }
+
+}
+
+Player.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+}
+
+var Jewel = function(){
+
+    this.sprite = "images/Gem Blue.png";
+
+}
+
+Jewel.prototype.update = function(){
+
+}
+
+Jewel.prototype.render = function(){
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+var allEnemies = [];
+var player = new Player();
 
 
 
