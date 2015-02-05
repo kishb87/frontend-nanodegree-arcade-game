@@ -15,11 +15,18 @@ var Enemy = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 
-Enemy.prototype.spawn = function(dt) {
 
+//Take from http://stackoverflow.com/questions/3419928/how-can-i-return-a-random-value-from-an-array
+
+
+
+Enemy.prototype.spawn = function(dt) {
+    this.ySpawn = [40, 130, 220, 310];
+    this.speedOptions = [300, 350, 400];
+    
     this.x = -200;
-    this.y = 200;
-    this.speed = 150;
+    this.y = this.Randomizer(this.ySpawn);
+    this.speed = this.Randomizer(this.speedOptions);
     
 }
 Enemy.prototype.update = function(dt) {
@@ -31,12 +38,19 @@ Enemy.prototype.update = function(dt) {
     if(this.x > this.xBoundary[1]){
         this.spawn();
     }
+
+
 }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+
+Enemy.prototype.Randomizer = function(inputArray) {
+    return inputArray[Math.floor(Math.random() * inputArray.length)];
+}
+
 
 
 // Now write your own player class
@@ -75,9 +89,26 @@ Player.prototype.handleInput = function(key){
 }
 
 
-
 Player.prototype.update = function(){
+    this.checkCollision();
+}
 
+Player.prototype.checkCollision = function(){
+    var self = this;
+    // loop through each bug and determine if there is a collision
+    allEnemies.forEach(function(enemy) {
+        if (enemy.y == self.y) {
+            if (enemy.x >= player.x - 25 && enemy.x <= player.x + 25) {
+                self.restart();
+            }
+        }
+    });
+}
+
+Player.prototype.restart = function(){
+    // Starting coordinates of the player
+    this.x = 200;
+    this.y = 400;
 }
 
 Player.prototype.render = function(){
@@ -91,8 +122,13 @@ Player.prototype.render = function(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var bob = new Enemy();
-var allEnemies = [bob];
+var enemy1 = new Enemy();
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
+var enemy4 = new Enemy();
+var enemy5 = new Enemy();
+var enemy6 = new Enemy();
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
 var player = new Player();
 
 
