@@ -16,8 +16,6 @@ var Enemy = function() {
 // Parameter: dt, a time delta between ticks
 
 
-//Take from http://stackoverflow.com/questions/3419928/how-can-i-return-a-random-value-from-an-array
-
 
 
 Enemy.prototype.spawn = function(dt) {
@@ -47,6 +45,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//Taken from http://stackoverflow.com/questions/3419928/how-can-i-return-a-random-value-from-an-array
 Enemy.prototype.Randomizer = function(inputArray) {
     return inputArray[Math.floor(Math.random() * inputArray.length)];
 }
